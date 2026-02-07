@@ -1,0 +1,35 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# --- PyCharm / JetBrains ---
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+# Note: Keep your .ipynb files, but ignore the large auto-saved checkpoints
+
+# --- macOS System Files ---
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# --- Datathon Specific: Large Data & Logs ---
+*.csv
+*.json
+*.log
+
+# --- Local Environment / Secrets ---
+.env
+.python-version
