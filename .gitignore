@@ -29,6 +29,7 @@ Icon
 *.csv
 *.json
 *.log
+*.png
 
 # --- Local Environment / Secrets ---
 .env
