@@ -1,5 +1,5 @@
 """
-TASK 2: CLUSTERING & ANOMALY DETECTION
+CLUSTERING & ANOMALY DETECTION
 Identify subgroups most at risk of falling through the cracks
 
 This model uses multiple techniques:

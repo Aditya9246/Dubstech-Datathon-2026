@@ -1,5 +1,5 @@
 """
-TASK 1: TIME-SERIES FORECASTING MODEL
+TIME-SERIES FORECASTING MODEL
 Predict trends in delayed or missed care over the next year (2025)
 
 This model uses multiple forecasting approaches:
