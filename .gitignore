@@ -31,6 +31,10 @@ Icon
 *.log
 *.png
 
+# But don't ignore this specific one
+!NHIS_data.csv
+!NHIS_data_Cleaned.csv
+
 # --- Local Environment / Secrets ---
 .env
 .python-version
