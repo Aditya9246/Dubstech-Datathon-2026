@@ -1,0 +1,15 @@
+# Data Manipulation and Loading
+pandas
+numpy
+pyarrow
+
+# Visualization
+matplotlib
+seaborn
+
+# Machine Learning and General Statistics
+scikit-learn
+scipy
+
+# Time-Series Forecasting
+prophet
