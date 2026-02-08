@@ -16,6 +16,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.feature_selection import SelectKBest, f_regression
 import warnings
+from pathlib import Path
 
 warnings.filterwarnings('ignore')
 
@@ -35,9 +36,24 @@ print("=" * 100)
 print("\n[STEP 1] LOADING AND PREPROCESSING DATA")
 print("-" * 100)
 
+current_script_path = Path(__file__).resolve()
+project_root = current_script_path.parent.parent
+
 # Load data
-df = pd.read_csv('../data/NHIS_Data_Cleaned.csv')
+df = pd.read_csv(project_root / "data" / "NHIS_Data_Cleaned.csv")
 print(f"✓ Loaded dataset: {df.shape[0]:,} rows × {df.shape[1]} columns")
+
+# Define Directory Structure
+# cost_prediction_model/
+# ├── output_data/
+# └── output_images/
+images_dir = current_script_path.parent / "output_images"
+data_dir = current_script_path.parent / "data_output"
+
+images_dir.mkdir(parents=True, exist_ok=True)
+data_dir.mkdir(parents=True, exist_ok=True)
+
+print(f"Directories created at: {current_script_path.parent}")
 
 # Filter for cost-related topics
 cost_topics = [
@@ -294,7 +310,7 @@ ax3.set_title('Overfitting Analysis\n(Negative = Good Generalization)', fontweig
 ax3.grid(axis='x', alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('1_model_performance_comparison.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / '1_model_performance_comparison.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: 1_model_performance_comparison.png")
 plt.close()
 
@@ -329,7 +345,7 @@ ax2.set_title('Residual Plot\n(Points should be randomly scattered around 0)', f
 ax2.grid(alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('2_best_model_predictions.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / '2_best_model_predictions.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: 2_best_model_predictions.png")
 plt.close()
 
@@ -351,7 +367,7 @@ for i, (idx, row) in enumerate(top_features.iterrows()):
             va='center', fontweight='bold', fontsize=10)
 
 plt.tight_layout()
-plt.savefig('3_feature_importance.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / '3_feature_importance.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: 3_feature_importance.png")
 plt.close()
 
@@ -419,7 +435,7 @@ ax4.invert_yaxis()
 ax4.grid(axis='x', alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('4_prediction_error_analysis.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / '4_prediction_error_analysis.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: 4_prediction_error_analysis.png")
 plt.close()
 
@@ -454,7 +470,7 @@ ax.grid(axis='x', alpha=0.3)
 ax.invert_yaxis()
 
 plt.tight_layout()
-plt.savefig('5_subgroup_predictions.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / '5_subgroup_predictions.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: 5_subgroup_predictions.png")
 plt.close()
 
@@ -465,11 +481,11 @@ print("\n[STEP 9] SAVING DETAILED RESULTS")
 print("-" * 100)
 
 # Save model comparison
-comparison_df.to_csv('model_comparison.csv', index=False)
+comparison_df.to_csv(data_dir / 'model_comparison.csv', index=False)
 print("✓ Saved: model_comparison.csv")
 
 # Save feature importance
-feature_importance.to_csv('feature_importance.csv', index=False)
+feature_importance.to_csv(data_dir / 'feature_importance.csv', index=False)
 print("✓ Saved: feature_importance.csv")
 
 # Save test set predictions with actual values
@@ -481,7 +497,7 @@ test_results['Percentage_Error'] = (test_results['Absolute_Error'] / test_result
 
 output_cols = ['TOPIC', 'SUBGROUP', 'TIME_PERIOD', 'Actual_Barrier',
                'Predicted_Barrier', 'Absolute_Error', 'Percentage_Error']
-test_results[output_cols].to_csv('test_set_predictions.csv', index=False)
+test_results[output_cols].to_csv(data_dir / 'test_set_predictions.csv', index=False)
 print("✓ Saved: test_set_predictions.csv")
 
 # ============================================================================

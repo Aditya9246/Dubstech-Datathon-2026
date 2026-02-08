@@ -23,6 +23,7 @@ from sklearn.metrics import silhouette_score, davies_bouldin_score
 from scipy.cluster.hierarchy import dendrogram, linkage
 from scipy.spatial.distance import pdist, squareform
 import warnings
+from pathlib import Path
 
 warnings.filterwarnings('ignore')
 
@@ -40,7 +41,24 @@ print("=" * 100)
 print("\n[STEP 1] LOADING AND ENGINEERING FEATURES FOR CLUSTERING")
 print("-" * 100)
 
-df = pd.read_csv('../data/NHIS_Data_Cleaned.csv')
+current_script_path = Path(__file__).resolve()
+project_root = current_script_path.parent.parent
+
+# Load data
+df = pd.read_csv(project_root / "data" / "NHIS_Data_Cleaned.csv")
+print(f"✓ Loaded dataset: {df.shape[0]:,} rows × {df.shape[1]} columns")
+
+# Define Directory Structure
+# clustering_anomaly_model/
+# ├── output_data/
+# └── output_images/
+images_dir = current_script_path.parent / "output_images"
+data_dir = current_script_path.parent / "data_output"
+
+images_dir.mkdir(parents=True, exist_ok=True)
+data_dir.mkdir(parents=True, exist_ok=True)
+
+print(f"Directories created at: {current_script_path.parent}")
 
 # Filter for delay/missed care topics
 delay_topics = [
@@ -378,7 +396,7 @@ ax4.set_title(f'Anomaly Detection (Consensus)\nAnomalies (red): {(features_df["A
 ax4.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('CLUST1_clustering_pca.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / 'CLUST1_clustering_pca.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: CLUST1_clustering_pca.png")
 plt.close()
 
@@ -444,7 +462,7 @@ for bar, count in zip(bars, anomaly_counts):
              ha='center', va='bottom', fontweight='bold', fontsize=11)
 
 plt.tight_layout()
-plt.savefig('CLUST2_risk_analysis.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / 'CLUST2_risk_analysis.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: CLUST2_risk_analysis.png")
 plt.close()
 
@@ -532,7 +550,7 @@ lines2, labels2 = ax4_twin.get_legend_handles_labels()
 ax4.legend(lines1 + lines2, labels1 + labels2, loc='upper right')
 
 plt.tight_layout()
-plt.savefig('CLUST3_cluster_analysis.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / 'CLUST3_cluster_analysis.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: CLUST3_cluster_analysis.png")
 plt.close()
 
@@ -555,7 +573,7 @@ ax.set_title('Hierarchical Clustering Dendrogram\n(Top 30 Branches)', fontweight
 ax.grid(axis='y', alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('CLUST4_dendrogram.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / 'CLUST4_dendrogram.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: CLUST4_dendrogram.png")
 plt.close()
 
@@ -566,7 +584,7 @@ print("\n[STEP 11] SAVING RESULTS")
 print("-" * 100)
 
 # Save full feature matrix with cluster assignments
-features_df.to_csv('clustering_full_results.csv', index=False)
+features_df.to_csv(data_dir / 'clustering_full_results.csv', index=False)
 print("✓ Saved: clustering_full_results.csv")
 
 # Save at-risk subgroups
@@ -576,7 +594,7 @@ at_risk_df = features_df[features_df['High_Risk']][
      'Anomaly_Count']
 ].sort_values('Risk_Score_Normalized', ascending=False)
 
-at_risk_df.to_csv('clustering_at_risk_subgroups.csv', index=False)
+at_risk_df.to_csv(data_dir / 'clustering_at_risk_subgroups.csv', index=False)
 print("✓ Saved: clustering_at_risk_subgroups.csv")
 
 # Save cluster summaries
@@ -596,7 +614,7 @@ for i in range(optimal_k):
     })
 
 cluster_summary_df = pd.DataFrame(cluster_summary)
-cluster_summary_df.to_csv('clustering_cluster_summary.csv', index=False)
+cluster_summary_df.to_csv(data_dir / 'clustering_cluster_summary.csv', index=False)
 print("✓ Saved: clustering_cluster_summary.csv")
 
 # ============================================================================

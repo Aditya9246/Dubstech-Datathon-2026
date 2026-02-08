@@ -17,6 +17,7 @@ import seaborn as sns
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 import warnings
+from pathlib import Path
 
 warnings.filterwarnings('ignore')
 
@@ -34,7 +35,24 @@ print("=" * 100)
 print("\n[STEP 1] LOADING AND PREPARING TIME-SERIES DATA")
 print("-" * 100)
 
-df = pd.read_csv('../data/NHIS_Data_Cleaned.csv')
+current_script_path = Path(__file__).resolve()
+project_root = current_script_path.parent.parent
+
+# Load data
+df = pd.read_csv(project_root / "data" / "NHIS_Data_Cleaned.csv")
+print(f"✓ Loaded dataset: {df.shape[0]:,} rows × {df.shape[1]} columns")
+
+# Define Directory Structure
+# timeseries_forecast_model/
+# ├── output_data/
+# └── output_images/
+images_dir = current_script_path.parent / "output_images"
+data_dir = current_script_path.parent / "data_output"
+
+images_dir.mkdir(parents=True, exist_ok=True)
+data_dir.mkdir(parents=True, exist_ok=True)
+
+print(f"Directories created at: {current_script_path.parent}")
 
 # Filter for delay/missed care topics
 delay_topics = [
@@ -337,7 +355,7 @@ ax1.grid(True, alpha=0.3)
 ax1.set_xticks(range(2019, 2026))
 
 plt.tight_layout()
-plt.savefig('TS1_overall_forecast.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / 'TS1_overall_forecast.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: TS1_overall_forecast.png")
 plt.close()
 
@@ -378,7 +396,7 @@ for idx, topic in enumerate(delay_topics):
     ax.set_xticks(range(2019, 2026))
 
 plt.tight_layout()
-plt.savefig('TS2_topic_forecasts.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / 'TS2_topic_forecasts.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: TS2_topic_forecasts.png")
 plt.close()
 
@@ -417,7 +435,7 @@ for i, (model, forecast) in enumerate(zip(models_to_plot, forecasts_2025)):
     ax2.text(forecast, i, f'  {forecast:.2f}%', va='center', fontweight='bold')
 
 plt.tight_layout()
-plt.savefig('TS3_model_comparison.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / 'TS3_model_comparison.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: TS3_model_comparison.png")
 plt.close()
 
@@ -481,7 +499,7 @@ ax4.legend()
 ax4.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('TS4_trend_analysis.png', dpi=300, bbox_inches='tight')
+plt.savefig(images_dir / 'TS4_trend_analysis.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: TS4_trend_analysis.png")
 plt.close()
 
@@ -492,11 +510,11 @@ print("\n[STEP 9] SAVING RESULTS")
 print("-" * 100)
 
 # Save model comparison
-results_df.to_csv('timeseries_model_comparison.csv', index=False)
+results_df.to_csv(data_dir / 'timeseries_model_comparison.csv', index=False)
 print("✓ Saved: timeseries_model_comparison.csv")
 
 # Save topic forecasts
-topic_forecast_df.to_csv('timeseries_topic_forecasts.csv', index=False)
+topic_forecast_df.to_csv(data_dir / 'timeseries_topic_forecasts.csv', index=False)
 print("✓ Saved: timeseries_topic_forecasts.csv")
 
 # Save detailed forecast
@@ -508,7 +526,7 @@ forecast_detail = pd.DataFrame({
     'CI_Lower_95': [np.nan] * 6 + [best_forecast - confidence_95],
     'CI_Upper_95': [np.nan] * 6 + [best_forecast + confidence_95]
 })
-forecast_detail.to_csv('timeseries_forecast_2025.csv', index=False)
+forecast_detail.to_csv(data_dir / 'timeseries_forecast_2025.csv', index=False)
 print("✓ Saved: timeseries_forecast_2025.csv")
 
 # ============================================================================
