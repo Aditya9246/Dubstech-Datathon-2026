@@ -33,13 +33,13 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 # 5. Run Model 1: Predictive Model
-python healthcare_cost_prediction.py
+python .\cost_prediction_model\healthcare_cost_prediction.py
 
 # 6. Run Model 2: Time-Series Forecasting
-python timeseries_forecast.py
+python .\timeseries_forecast_model\timeseries_forecast.py
 
 # 7. Run Model 3: Clustering & Anomaly Detection
-python clustering_anomaly.py
+python .\clustering_anomaly_model\clustering_anomaly.py
 ```
 
 **Total Runtime:** ~90 seconds for all three models
@@ -51,7 +51,7 @@ python clustering_anomaly.py
 ### 🔵 MODEL 1: Predictive ML Model (Subgroup Cost Barriers)
 
 **Python Script:**
-- `healthcare_cost_prediction.py` - Main analysis (6 algorithms, 70-30 split)
+- `healthcare_cost_prediction.py` - Main analysis (6 algorithms, 70-30 split between train-test data)
 
 **Key Result:** 93.7% accuracy (R²), 0.52 pp average error
 
@@ -171,6 +171,11 @@ A: Yes! All models are production-ready. Model 1 can score new subgroups in real
 **Q: What's the most surprising finding?**
 
 A: The COVID paradox - barriers initially decreased in 2020 but are now increasing above pre-COVID levels. Also, mental health care is the only category getting worse while others improve.
+
+**Q: How can impact be achieved using this project?
+
+A: The broadest manner to achieve impact in healthcare is through policy-making. We hope that policymakers can gain insights on
+which underserved sub-groups need to be uplifted in order to receive the healthcare they deserve.
 
 **Q: Who should policymakers focus on?**
 
