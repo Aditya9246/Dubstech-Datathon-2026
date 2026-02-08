@@ -25,15 +25,17 @@ env/
 Icon
 ._*
 
+# Don't ignore this specific one
+!NHIS_data.csv
+!NHIS_data_Cleaned.csv
+
 # --- Datathon Specific: Large Data & Logs ---
 *.csv
 *.json
 *.log
 *.png
 
-# But don't ignore this specific one
-!NHIS_data.csv
-!NHIS_data_Cleaned.csv
+
 
 # --- Local Environment / Secrets ---
 .env
