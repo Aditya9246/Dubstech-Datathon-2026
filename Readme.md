@@ -1,4 +1,4 @@
-# 🏥 Complete Healthcare Access ML Analysis Package
+# 🏥 Complete Healthcare ML Analysis 
 ## DubsTech Datathon 2026 - Three Comprehensive Models
 
 ---
@@ -12,13 +12,46 @@ This submission contains **THREE complete machine learning analyses** for health
 3. **Clustering & Anomaly Detection** - Identifies at-risk subgroups
 
 ---
+## 🚀 Quick Start Guide
+
+### Run All Three Models:
+
+```bash
+# 1. Create the virtual environment (named 'venv')
+python -m venv venv
+
+# 2. Activate the environment
+# On Windows:
+.\venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+
+# 3. Upgrade pip to the latest version
+python -m pip install --upgrade pip
+
+# 4. Install dependencies from the file
+pip install -r requirements.txt
+
+# 5. Run Model 1: Predictive Model
+python healthcare_cost_prediction.py
+
+# 6. Run Model 2: Time-Series Forecasting
+python timeseries_forecast.py
+
+# 7. Run Model 3: Clustering & Anomaly Detection
+python clustering_anomaly.py
+```
+
+**Total Runtime:** ~90 seconds for all three models
+
+---
 
 ## 📦 Complete File Inventory
 
 ### 🔵 MODEL 1: Predictive ML Model (Subgroup Cost Barriers)
 
 **Python Script:**
-- `ml_healthcare_cost_prediction.py` - Main analysis (6 algorithms, 70-30 split)
+- `healthcare_cost_prediction.py` - Main analysis (6 algorithms, 70-30 split)
 
 **Key Result:** 93.7% accuracy (R²), 0.52 pp average error
 
@@ -27,7 +60,7 @@ This submission contains **THREE complete machine learning analyses** for health
 ### 🟢 MODEL 2: Time-Series Forecasting (Future Trends)
 
 **Python Script:**
-- `timeseries_forecast_model.py` - Multi-model forecasting pipeline
+- `timeseries_forecast.py` - Multi-model forecasting pipeline
 
 **Key Result:** 9.15% predicted average barrier for 2025 (95% CI: 7.93-10.36%)
 
@@ -36,7 +69,7 @@ This submission contains **THREE complete machine learning analyses** for health
 ### 🟠 MODEL 3: Clustering & Anomaly Detection (At-Risk Groups)
 
 **Python Script:**
-- `clustering_anomaly_detection.py` - Multi-method clustering and anomaly detection
+- `clustering_anomaly.py` - Multi-method clustering and anomaly detection
 
 **Key Result:** Identified 11 high-confidence anomalies, 19 at-risk subgroups
 
@@ -46,33 +79,13 @@ This submission contains **THREE complete machine learning analyses** for health
 
 - `README.md` - This comprehensive guide
 - `requirements.txt` - This is the list of all dependencies
-- `Ml_healthcare_cost_prediction.py` - Model 1
+- `healthcare_cost_prediction.py` - Model 1
 - `clustering_anomaly.py` - Model 2 
 - `timeseries_forecast.py` - Model 3 
 
 ---
 
-## 🚀 Quick Start Guide
 
-### Run All Three Models:
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Run Model 1: Predictive Model
-python ml_healthcare_cost_prediction.py
-
-# Run Model 2: Time-Series Forecasting
-python timeseries_forecast_model.py
-
-# Run Model 3: Clustering & Anomaly Detection
-python clustering_anomaly_detection.py
-```
-
-**Total Runtime:** ~90 seconds for all three models
-
----
 
 ## 💡 Key Insights Across All Three Models
 
@@ -131,7 +144,6 @@ python clustering_anomaly_detection.py
 | **Models Built**                | 13 (6 + 4 + 3)      |
 | **Visualizations**              | 15 high-res images  |
 | **CSV Outputs**                 | 10 detailed files   |
-| **Documentation Pages**         | 30+ pages           |
 | **Demographic Groups Analyzed** | 75 subgroups        |
 | **Time Period Coverage**        | 2019-2025 (7 years) |
 | **Data Points Processed**       | 1,800+ records      |
@@ -191,19 +203,20 @@ A: Top priorities: (1) Bisexual individuals (23.5% barrier), (2) Uninsured (19%)
 
 **Minimum:**
 - Python 3.8+
-- 2GB RAM
+- 4GB RAM
 - Any OS (Windows/Mac/Linux)
 
 **Recommended:**
 - Python 3.10+
-- 4GB RAM
+- 8GB RAM
 - Multi-core CPU for faster processing
 
 ---
 
 **Created for DubsTech Datathon 2026**  
 **Topic: Access to Care - Healthcare Barriers Analysis**  
-**Total Time Investment:** ~12 hours of analysis, coding, and documentation
+**Total Time Investment:** ~16 hours of analysis, coding, and documentation
+
 **Date: February 2026**
 
 **Three Models. Comprehensive Analysis. Actionable Insights.** 🚀
